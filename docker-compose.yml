@@ -10,20 +10,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-  app:
-    build: .
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgresql://saas:saaspassword@db:5432/saas_launchpad
-      NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: your-secret-change-in-production
-      STRIPE_SECRET_KEY: sk_test_placeholder
-      STRIPE_WEBHOOK_SECRET: whsec_placeholder
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U saas -d saas_launchpad"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:

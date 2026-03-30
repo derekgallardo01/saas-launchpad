@@ -1,13 +1,40 @@
 # SaaS Launchpad
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
-[![Prisma](https://img.shields.io/badge/Prisma-7-2D3748)](https://www.prisma.io/)
-[![Stripe](https://img.shields.io/badge/Stripe-Integrated-635BFF)](https://stripe.com/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED)](https://www.docker.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-7-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+[![tRPC](https://img.shields.io/badge/tRPC-v11-398CCB?style=for-the-badge&logo=trpc)](https://trpc.io/)
+[![Stripe](https://img.shields.io/badge/Stripe-Integrated-635BFF?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
 Production-ready multi-tenant SaaS boilerplate with authentication, organizations, Stripe billing, API key management, and activity logging. Built with Next.js 16, tRPC v11, Prisma 7, and TypeScript -- designed to let you skip months of infrastructure work and focus on your product.
+
+---
+
+## Quick Start (One Command)
+
+**Prerequisites:** [Node.js 22+](https://nodejs.org/), [Docker](https://www.docker.com/get-started/)
+
+```bash
+git clone https://github.com/yourusername/saas-launchpad.git
+cd saas-launchpad
+bash scripts/setup.sh      # Linux/macOS
+# .\scripts\setup.ps1      # Windows PowerShell
+npm run dev
+```
+
+> **Demo Credentials**
+>
+> Email: `demo@example.com`
+> Password: `password123`
+>
+> Open http://localhost:3000 after starting the dev server.
+
+The setup script handles everything: starts PostgreSQL via Docker, installs dependencies, runs database migrations, and seeds demo data.
+
+---
 
 ## Features
 
@@ -281,9 +308,11 @@ Detailed Mermaid diagrams documenting the full system:
 | API Structure | [api-structure.md](docs/diagrams/api-structure.md) | tRPC router hierarchy with access levels |
 | CI/CD Pipeline | [ci-cd-pipeline.md](docs/diagrams/ci-cd-pipeline.md) | GitHub Actions workflow visualization |
 
-## Quick Start
+## Development Setup
 
-### 1. Clone and install
+### Manual Setup (Step by Step)
+
+#### 1. Clone and install
 
 ```bash
 git clone https://github.com/yourusername/saas-launchpad.git
@@ -291,27 +320,27 @@ cd saas-launchpad
 npm install
 ```
 
-### 2. Set up environment
+#### 2. Set up environment
 
 ```bash
 cp .env.example .env
 # Edit .env with your values (see Environment Variables section below)
 ```
 
-### 3. Start database
+#### 3. Start database
 
 ```bash
-docker compose up -d db
+npm run db:start
 ```
 
-### 4. Run migrations and seed
+#### 4. Run migrations and seed
 
 ```bash
-npx prisma migrate dev
-npx prisma db seed
+npm run db:migrate
+npm run db:seed
 ```
 
-### 5. Start development server
+#### 5. Start development server
 
 ```bash
 npm run dev
@@ -319,13 +348,22 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000). Login with `demo@example.com` / `password123`.
 
-### Using Docker (full stack)
+### NPM Scripts Reference
 
-```bash
-docker compose up
-```
-
-This starts both PostgreSQL and the Next.js app with hot reloading.
+| Script | Command | Description |
+|--------|---------|-------------|
+| `npm run dev` | `next dev` | Start Next.js dev server |
+| `npm run build` | `next build` | Production build |
+| `npm run setup` | `bash scripts/setup.sh` | Full one-command setup |
+| `npm run db:start` | `docker compose up -d db` | Start PostgreSQL |
+| `npm run db:stop` | `docker compose down` | Stop all containers |
+| `npm run db:migrate` | `npx prisma migrate dev` | Run database migrations |
+| `npm run db:seed` | `npx prisma db seed` | Seed demo data |
+| `npm run db:studio` | `npx prisma studio` | Open Prisma Studio GUI |
+| `npm run type-check` | `tsc --noEmit` | TypeScript type checking |
+| `npm run test` | `vitest run` | Run unit tests once |
+| `npm run test:watch` | `vitest` | Run tests in watch mode |
+| `npm run lint` | `eslint` | Lint with ESLint |
 
 ## Project Structure
 
@@ -333,46 +371,66 @@ This starts both PostgreSQL and the Next.js app with hot reloading.
 saas-launchpad/
 ├── src/
 │   ├── app/
-│   │   ├── (auth)/              # Login, register pages
-│   │   ├── (dashboard)/         # Dashboard, members, billing, API keys, activity, settings
+│   │   ├── (auth)/                    # Auth pages
+│   │   │   ├── login/page.tsx         # Login with OAuth + credentials
+│   │   │   └── register/page.tsx      # Registration form
+│   │   ├── (dashboard)/               # Protected dashboard pages
+│   │   │   ├── dashboard/page.tsx     # Overview with stats and activity
+│   │   │   ├── members/page.tsx       # Team management and invitations
+│   │   │   ├── billing/page.tsx       # Subscription plans and Stripe portal
+│   │   │   ├── api-keys/page.tsx      # API key generation and management
+│   │   │   ├── activity/page.tsx      # Paginated audit log
+│   │   │   └── settings/page.tsx      # Organization settings
 │   │   ├── api/
-│   │   │   ├── auth/            # NextAuth API route
-│   │   │   ├── trpc/            # tRPC API handler
-│   │   │   └── webhooks/stripe/ # Stripe webhook handler
-│   │   ├── layout.tsx           # Root layout with providers
-│   │   └── page.tsx             # Landing page
-│   ├── components/ui/           # Reusable UI components (Avatar, Badge, Button, Card, Input, Table)
+│   │   │   ├── auth/[...nextauth]/    # NextAuth API route
+│   │   │   ├── trpc/[trpc]/           # tRPC API handler
+│   │   │   └── webhooks/stripe/       # Stripe webhook handler
+│   │   ├── layout.tsx                 # Root layout with providers
+│   │   └── page.tsx                   # Landing page
+│   ├── components/ui/                 # Reusable UI components
+│   │   ├── Avatar.tsx
+│   │   ├── Badge.tsx
+│   │   ├── Button.tsx
+│   │   ├── Card.tsx
+│   │   ├── Input.tsx
+│   │   └── Table.tsx
 │   ├── lib/
-│   │   ├── auth.ts              # NextAuth configuration
-│   │   ├── auth-utils.ts        # Password hashing, role helpers
-│   │   ├── db.ts                # Prisma client singleton
-│   │   ├── stripe.ts            # Stripe client + PLANS config
-│   │   └── trpc.tsx             # tRPC React client
+│   │   ├── auth.ts                    # NextAuth configuration
+│   │   ├── auth-utils.ts             # Password hashing, role helpers
+│   │   ├── db.ts                      # Prisma client singleton
+│   │   ├── stripe.ts                  # Stripe client + PLANS config
+│   │   └── trpc.tsx                   # tRPC React client
 │   ├── server/
-│   │   ├── trpc.ts              # tRPC init, context, middleware (public/protected/admin)
+│   │   ├── trpc.ts                    # tRPC init, context, middleware
 │   │   └── routers/
-│   │       ├── _app.ts          # Root appRouter
-│   │       ├── auth.ts          # register, me
-│   │       ├── organization.ts  # create, list, getById, update, delete
-│   │       ├── member.ts        # list, invite, removeMember, updateRole
-│   │       ├── billing.ts       # plans, getSubscription, createCheckoutSession, createPortalSession
-│   │       ├── apiKey.ts        # list, create, revoke
-│   │       └── activity.ts      # list (paginated)
-│   ├── generated/prisma/        # Prisma generated client
-│   └── types/                   # TypeScript declarations
+│   │       ├── _app.ts               # Root appRouter (merges all routers)
+│   │       ├── auth.ts               # register, me
+│   │       ├── organization.ts       # create, list, getById, update, delete
+│   │       ├── member.ts             # list, invite, removeMember, updateRole
+│   │       ├── billing.ts            # plans, getSubscription, checkout, portal
+│   │       ├── apiKey.ts             # list, create, revoke
+│   │       └── activity.ts           # list (paginated)
+│   ├── generated/prisma/             # Prisma generated client (gitignored)
+│   └── types/                        # TypeScript declarations
 ├── prisma/
-│   ├── schema.prisma            # Database schema (8 models, 2 enums)
-│   └── seed.ts                  # Demo data seeder
+│   ├── schema.prisma                  # Database schema (8 models, 2 enums)
+│   ├── migrations/                    # SQL migration files
+│   └── seed.ts                        # Demo data seeder
 ├── tests/
 │   └── unit/
-│       ├── auth-utils.test.ts   # Password hashing/verification tests
-│       └── stripe.test.ts       # Plans configuration tests
+│       ├── auth-utils.test.ts        # Password hashing/verification tests
+│       └── stripe.test.ts            # Plans configuration tests
+├── scripts/
+│   ├── setup.sh                       # One-command setup (Linux/macOS)
+│   ├── setup.ps1                      # One-command setup (Windows)
+│   └── env.example                    # Default .env for local development
 ├── docs/
-│   ├── diagrams/                # Mermaid architecture diagrams (6 files)
-│   └── screenshots/             # HTML UI mockups (6 files)
-├── .github/workflows/ci.yml     # GitHub Actions CI pipeline
-├── docker-compose.yml
-├── Dockerfile
+│   ├── diagrams/                      # Mermaid architecture diagrams (6 files)
+│   └── screenshots/                   # HTML UI mockups (6 files)
+├── .github/workflows/ci.yml          # GitHub Actions CI pipeline
+├── docker-compose.yml                 # PostgreSQL for development
+├── Dockerfile                         # Production multi-stage build
+├── CONTRIBUTING.md                    # Contributor guide
 └── package.json
 ```
 
@@ -392,19 +450,16 @@ saas-launchpad/
 | `STRIPE_PRO_PRICE_ID` | Stripe price ID for Pro plan ($29/mo) | Yes |
 | `STRIPE_ENTERPRISE_PRICE_ID` | Stripe price ID for Enterprise plan ($99/mo) | Yes |
 
+For local development, the setup script copies `scripts/env.example` to `.env` with working defaults. OAuth and Stripe features require real API keys.
+
 ## Testing
 
 Unit tests are written with [Vitest](https://vitest.dev/) and located in `tests/unit/`.
 
 ```bash
-# Run all unit tests
-npx vitest run
-
-# Run tests in watch mode
-npx vitest
-
-# Run a specific test file
-npx vitest run tests/unit/auth-utils.test.ts
+npm run test           # Run all unit tests
+npm run test:watch     # Run tests in watch mode
+npx vitest run tests/unit/auth-utils.test.ts   # Run a specific test file
 ```
 
 ### Test Coverage
@@ -452,12 +507,6 @@ docker build -t saas-launchpad .
 docker run -p 3000:3000 --env-file .env saas-launchpad
 ```
 
-Or use Docker Compose for the full stack:
-
-```bash
-docker compose -f docker-compose.yml up -d
-```
-
 ### CI/CD Pipeline
 
 Every push to `main` and every pull request triggers the GitHub Actions pipeline:
@@ -467,6 +516,27 @@ Every push to `main` and every pull request triggers the GitHub Actions pipeline
 3. Vercel/Railway auto-deploys on merge to `main`
 
 See the [CI/CD pipeline diagram](docs/diagrams/ci-cd-pipeline.md) for a visual overview.
+
+## Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+
+- Prerequisites and setup instructions
+- Development workflow (branch, code, test, PR)
+- Code style guidelines (TypeScript strict, Tailwind, tRPC patterns)
+- Database migration workflow
+
+## Roadmap
+
+Planned features for future releases:
+
+- **SSO / SAML** -- Enterprise single sign-on with SAML 2.0 and OIDC
+- **Webhook Management** -- User-configurable outbound webhooks with retry and delivery logs
+- **Team Permissions Matrix** -- Fine-grained resource-level permissions beyond role hierarchy
+- **API Rate Limiting** -- Per-key and per-plan rate limits with Redis-backed sliding window
+- **Email Notifications** -- Transactional emails for invitations, billing events, and security alerts
+- **Audit Log Export** -- CSV/JSON export and webhook streaming for compliance
+- **Multi-Region Support** -- Database read replicas and edge-aware routing
 
 ## License
 
