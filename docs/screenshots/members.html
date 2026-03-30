@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaaS Launchpad - Members</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+</style>
+</head>
+<body class="bg-zinc-100 antialiased">
+
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-zinc-900 text-white flex flex-col shrink-0">
+    <div class="p-5 border-b border-zinc-800">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <span class="font-bold text-sm">SaaS Launchpad</span>
+      </div>
+      <div class="flex items-center gap-2 px-2.5 py-2 bg-zinc-800 rounded-lg">
+        <div class="w-6 h-6 bg-blue-500 rounded flex items-center justify-center text-xs font-bold">A</div>
+        <span class="text-sm font-medium truncate">Acme Inc</span>
+        <svg class="w-4 h-4 ml-auto text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/></svg>
+      </div>
+    </div>
+    <nav class="flex-1 p-3 space-y-1">
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg text-sm transition">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+        Dashboard
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-white/10 rounded-lg text-sm font-medium">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+        Members
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg text-sm transition">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+        Billing
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg text-sm transition">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+        API Keys
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg text-sm transition">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/></svg>
+        Activity
+      </a>
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg text-sm transition">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="p-3 border-t border-zinc-800">
+      <div class="flex items-center gap-3 px-3 py-2">
+        <div class="w-8 h-8 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-full flex items-center justify-center text-xs font-bold text-white">JD</div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium truncate">Jane Doe</p>
+          <p class="text-xs text-zinc-400 truncate">jane@acme.com</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 overflow-y-auto">
+    <div class="p-8">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-zinc-900 mb-1">Members</h1>
+          <p class="text-sm text-zinc-500">Manage your organization's team members.</p>
+        </div>
+        <button class="inline-flex items-center gap-2 px-4 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+          Invite Member
+        </button>
+      </div>
+
+      <!-- Invite Banner -->
+      <div class="bg-white rounded-xl border border-zinc-200 p-5 mb-6">
+        <div class="flex items-end gap-4">
+          <div class="flex-1">
+            <label class="block text-sm font-medium text-zinc-700 mb-1.5">Email address</label>
+            <input type="email" placeholder="colleague@company.com" class="w-full px-3.5 py-2.5 border border-zinc-300 rounded-lg text-sm focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition placeholder:text-zinc-400">
+          </div>
+          <div class="w-40">
+            <label class="block text-sm font-medium text-zinc-700 mb-1.5">Role</label>
+            <select class="w-full px-3.5 py-2.5 border border-zinc-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-zinc-900 focus:border-zinc-900 outline-none transition">
+              <option>Member</option>
+              <option>Admin</option>
+            </select>
+          </div>
+          <button class="px-5 py-2.5 bg-zinc-900 text-white text-sm font-medium rounded-lg hover:bg-zinc-800 transition whitespace-nowrap">Send Invite</button>
+        </div>
+      </div>
+
+      <!-- Team Members Table -->
+      <div class="bg-white rounded-xl border border-zinc-200 mb-6">
+        <div class="px-6 py-4 border-b border-zinc-100">
+          <h2 class="font-semibold text-zinc-900">Team Members</h2>
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-zinc-100 text-left">
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Member</th>
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Role</th>
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Joined</th>
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-100">
+            <!-- Owner -->
+            <tr>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0">JD</div>
+                  <div>
+                    <p class="text-sm font-medium text-zinc-900">Jane Doe</p>
+                    <p class="text-xs text-zinc-500">jane@acme.com</p>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-900 text-white">Owner</span>
+              </td>
+              <td class="px-6 py-4 text-sm text-zinc-500">Mar 15, 2026</td>
+              <td class="px-6 py-4 text-right">
+                <span class="text-xs text-zinc-400">--</span>
+              </td>
+            </tr>
+            <!-- Admin -->
+            <tr>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 bg-gradient-to-br from-orange-400 to-rose-500 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0">AS</div>
+                  <div>
+                    <p class="text-sm font-medium text-zinc-900">Alice Smith</p>
+                    <p class="text-xs text-zinc-500">alice@acme.com</p>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-700">Admin</span>
+              </td>
+              <td class="px-6 py-4 text-sm text-zinc-500">Mar 18, 2026</td>
+              <td class="px-6 py-4 text-right">
+                <button class="text-sm text-red-600 hover:text-red-700 font-medium transition">Remove</button>
+              </td>
+            </tr>
+            <!-- Member -->
+            <tr>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 bg-gradient-to-br from-violet-400 to-indigo-500 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0">BJ</div>
+                  <div>
+                    <p class="text-sm font-medium text-zinc-900">Bob Johnson</p>
+                    <p class="text-xs text-zinc-500">bob@acme.com</p>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">Member</span>
+              </td>
+              <td class="px-6 py-4 text-sm text-zinc-500">Mar 22, 2026</td>
+              <td class="px-6 py-4 text-right">
+                <button class="text-sm text-red-600 hover:text-red-700 font-medium transition">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pending Invitations -->
+      <div class="bg-white rounded-xl border border-zinc-200">
+        <div class="px-6 py-4 border-b border-zinc-100">
+          <h2 class="font-semibold text-zinc-900">Pending Invitations</h2>
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-zinc-100 text-left">
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Email</th>
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Role</th>
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Invited</th>
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider">Expires</th>
+              <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wider text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 bg-zinc-100 rounded-full flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                  </div>
+                  <span class="text-sm text-zinc-900">carol@acme.com</span>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">Member</span>
+              </td>
+              <td class="px-6 py-4 text-sm text-zinc-500">Mar 28, 2026</td>
+              <td class="px-6 py-4 text-sm text-zinc-500">Apr 4, 2026</td>
+              <td class="px-6 py-4 text-right">
+                <button class="text-sm text-red-600 hover:text-red-700 font-medium transition">Revoke</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
