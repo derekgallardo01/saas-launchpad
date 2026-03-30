@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TRPCProvider } from "@/lib/trpc";
 import { SessionProvider } from "next-auth/react";
+import { OrgProvider } from "@/lib/org-context";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1" },
@@ -20,6 +21,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <SessionProvider>
       <TRPCProvider>
+        <OrgProvider>
         <div className="flex h-screen bg-zinc-50 dark:bg-zinc-950">
           {/* Sidebar */}
           <aside className="flex w-64 flex-col border-r border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
@@ -61,6 +63,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="mx-auto max-w-5xl p-8">{children}</div>
           </main>
         </div>
+        </OrgProvider>
       </TRPCProvider>
     </SessionProvider>
   );
