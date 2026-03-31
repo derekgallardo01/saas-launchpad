@@ -24,7 +24,7 @@ echo "Installing dependencies..."
 npm install
 
 echo "Running migrations..."
-npx prisma migrate dev --name init
+npx prisma migrate dev
 
 echo "Seeding demo data..."
 npx prisma db seed

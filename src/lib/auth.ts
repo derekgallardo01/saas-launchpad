@@ -1,4 +1,4 @@
-import { type NextAuthOptions, type Provider } from "next-auth";
+import { type NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
@@ -6,7 +6,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { db } from "@/lib/db";
 import { verifyPassword } from "@/lib/auth-utils";
 
-const providers: Provider[] = [
+const providers: NextAuthOptions["providers"] = [
   CredentialsProvider({
     name: "credentials",
     credentials: {
