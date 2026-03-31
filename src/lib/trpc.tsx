@@ -1,6 +1,7 @@
 "use client";
 
-import { createTRPCReact, httpBatchLink } from "@trpc/react-query";
+import { createTRPCReact } from "@trpc/react-query";
+import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import superjson from "superjson";
