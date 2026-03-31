@@ -11,6 +11,8 @@
 
 Production-ready multi-tenant SaaS boilerplate with authentication, organizations, Stripe billing, API key management, and activity logging. Built with Next.js 16, tRPC v11, Prisma 7, and TypeScript -- designed to let you skip months of infrastructure work and focus on your product.
 
+![SaaS Launchpad Hero](docs/screenshots/hero-saas.png)
+
 ---
 
 ## Quick Start (One Command)
@@ -297,7 +299,17 @@ See the [full Stripe payment flow diagram](docs/diagrams/stripe-flow.md) for the
 
 ## Screenshots
 
-Interactive HTML mockups of every major page (open in a browser):
+| | |
+|---|---|
+| ![Landing Page](docs/screenshots/landing-page.png) | ![Login](docs/screenshots/login.png) |
+| *Landing Page* | *Login* |
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Members](docs/screenshots/members.png) |
+| *Dashboard Overview* | *Team Members* |
+| ![Billing](docs/screenshots/billing.png) | ![API Keys](docs/screenshots/api-keys.png) |
+| *Billing & Plans* | *API Key Management* |
+
+<details>
+<summary>Interactive HTML mockups (open in browser)</summary>
 
 | Page | File | Description |
 |------|------|-------------|
@@ -308,6 +320,7 @@ Interactive HTML mockups of every major page (open in a browser):
 | Members | [members.html](docs/screenshots/members.html) | Team roster, invite form, pending invitations |
 | Billing | [billing.html](docs/screenshots/billing.html) | Current plan status and plan comparison cards |
 | API Keys | [api-keys.html](docs/screenshots/api-keys.html) | Key management with creation alert |
+</details>
 
 ## Diagrams
 
