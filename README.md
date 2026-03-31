@@ -38,15 +38,28 @@ The setup script handles everything: starts PostgreSQL via Docker, installs depe
 
 ## Features
 
+### Core Platform
 - **Authentication** -- Email/password + GitHub + Google OAuth via NextAuth.js (JWT strategy)
 - **Multi-Tenancy** -- Organizations with Owner/Admin/Member role hierarchy
 - **Stripe Billing** -- Subscriptions, checkout, customer portal, and webhook handling
 - **API Keys** -- Generate, manage, and revoke keys with SHA-256 hashed storage
 - **Activity Logs** -- Complete audit trail for all organization actions
 - **Type-Safe API** -- End-to-end typesafe with tRPC v11 + Zod validation
+- **Admin Panel** -- Owner-only system overview with user metrics, org-level analytics, and health indicators
+
+### Advanced Features
+- **Rate Limiting** -- Token-bucket algorithm with per-route limits and standard `X-RateLimit-*` headers
+- **Health Checks** -- `/api/health` endpoint reporting uptime, database connectivity, and version
+- **Structured Logging** -- JSON logs in production, pretty-printed in dev, with configurable levels and request ID tracking
+- **Optimistic Mutations** -- Generic hook for instant UI updates with automatic rollback on failure
+- **Email Templates** -- React-based invitation and welcome emails ready for Resend / SendGrid integration
+- **Custom Hooks** -- `useDebounce`, `useLocalStorage`, and `useDebouncedCallback` for common UI patterns
+
+### Developer Experience
 - **Dark Mode** -- System-aware with manual toggle
 - **Docker** -- One-command development environment
 - **CI/CD** -- GitHub Actions for lint, type-check, and build
+- **Architecture Decision Records** -- Documented rationale for every major technical choice
 
 ## Tech Stack
 
@@ -288,6 +301,7 @@ Interactive HTML mockups of every major page (open in a browser):
 
 | Page | File | Description |
 |------|------|-------------|
+| **Hero Dashboard** | [hero-saas.html](docs/screenshots/hero-saas.html) | Dark-mode dashboard with glassmorphism cards, animated sparklines, revenue chart, and live activity feed |
 | Landing Page | [landing-page.html](docs/screenshots/landing-page.html) | Marketing page with hero, features grid, and pricing cards |
 | Login | [login.html](docs/screenshots/login.html) | OAuth buttons + email/password form |
 | Dashboard | [dashboard.html](docs/screenshots/dashboard.html) | Stat cards and recent activity feed |
@@ -307,6 +321,16 @@ Detailed Mermaid diagrams documenting the full system:
 | Stripe Payment Flow | [stripe-flow.md](docs/diagrams/stripe-flow.md) | Checkout, webhook, and portal sequences |
 | API Structure | [api-structure.md](docs/diagrams/api-structure.md) | tRPC router hierarchy with access levels |
 | CI/CD Pipeline | [ci-cd-pipeline.md](docs/diagrams/ci-cd-pipeline.md) | GitHub Actions workflow visualization |
+
+## Architecture Decision Records
+
+Key technical decisions are documented as ADRs in [`docs/adr/`](docs/adr/):
+
+| ADR | Decision | Summary |
+|-----|----------|---------|
+| [001](docs/adr/001-trpc-over-rest.md) | tRPC over REST/GraphQL | End-to-end type safety, no code generation, 2 KB client bundle |
+| [002](docs/adr/002-jwt-over-database-sessions.md) | JWT over database sessions | No per-request DB lookups, simpler serverless deployment, sub-millisecond auth |
+| [003](docs/adr/003-org-based-multi-tenancy.md) | Org-based multi-tenancy | Row-level isolation via membership checks, single database, Prisma-native |
 
 ## Development Setup
 
@@ -380,10 +404,12 @@ saas-launchpad/
 │   │   │   ├── billing/page.tsx       # Subscription plans and Stripe portal
 │   │   │   ├── api-keys/page.tsx      # API key generation and management
 │   │   │   ├── activity/page.tsx      # Paginated audit log
-│   │   │   └── settings/page.tsx      # Organization settings
+│   │   │   ├── settings/page.tsx      # Organization settings
+│   │   │   └── admin/page.tsx         # Owner-only admin super panel
 │   │   ├── api/
 │   │   │   ├── auth/[...nextauth]/    # NextAuth API route
 │   │   │   ├── trpc/[trpc]/           # tRPC API handler
+│   │   │   ├── health/               # Health check endpoint
 │   │   │   └── webhooks/stripe/       # Stripe webhook handler
 │   │   ├── layout.tsx                 # Root layout with providers
 │   │   └── page.tsx                   # Landing page
@@ -398,8 +424,17 @@ saas-launchpad/
 │   │   ├── auth.ts                    # NextAuth configuration
 │   │   ├── auth-utils.ts             # Password hashing, role helpers
 │   │   ├── db.ts                      # Prisma client singleton
+│   │   ├── logger.ts                  # Structured logging (JSON prod, pretty dev)
+│   │   ├── rate-limit.ts             # Token-bucket rate limiter
 │   │   ├── stripe.ts                  # Stripe client + PLANS config
-│   │   └── trpc.tsx                   # tRPC React client
+│   │   ├── trpc.tsx                   # tRPC React client
+│   │   ├── hooks/
+│   │   │   ├── use-debounce.ts       # Debounce hook for search/filter inputs
+│   │   │   ├── use-local-storage.ts  # Persistent state with cross-tab sync
+│   │   │   └── use-optimistic-mutation.ts # Generic optimistic update hook
+│   │   └── email/templates/
+│   │       ├── invitation.tsx         # Member invitation email
+│   │       └── welcome.tsx            # New user welcome email
 │   ├── server/
 │   │   ├── trpc.ts                    # tRPC init, context, middleware
 │   │   └── routers/
@@ -425,8 +460,9 @@ saas-launchpad/
 │   ├── setup.ps1                      # One-command setup (Windows)
 │   └── env.example                    # Default .env for local development
 ├── docs/
+│   ├── adr/                           # Architecture Decision Records (3 files)
 │   ├── diagrams/                      # Mermaid architecture diagrams (6 files)
-│   └── screenshots/                   # HTML UI mockups (6 files)
+│   └── screenshots/                   # HTML UI mockups (7 files)
 ├── .github/workflows/ci.yml          # GitHub Actions CI pipeline
 ├── docker-compose.yml                 # PostgreSQL for development
 ├── Dockerfile                         # Production multi-stage build
@@ -533,8 +569,8 @@ Planned features for future releases:
 - **SSO / SAML** -- Enterprise single sign-on with SAML 2.0 and OIDC
 - **Webhook Management** -- User-configurable outbound webhooks with retry and delivery logs
 - **Team Permissions Matrix** -- Fine-grained resource-level permissions beyond role hierarchy
-- **API Rate Limiting** -- Per-key and per-plan rate limits with Redis-backed sliding window
-- **Email Notifications** -- Transactional emails for invitations, billing events, and security alerts
+- ~~**API Rate Limiting**~~ -- Shipped: token-bucket algorithm with pre-configured limiters for API, auth, and sensitive operations
+- ~~**Email Notifications**~~ -- Shipped: React email templates for invitations and welcome emails (Resend/SendGrid integration ready)
 - **Audit Log Export** -- CSV/JSON export and webhook streaming for compliance
 - **Multi-Region Support** -- Database read replicas and edge-aware routing
 
